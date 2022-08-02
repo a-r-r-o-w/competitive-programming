@@ -53,6 +53,8 @@ None
 
 ### Solution
 
+**O(k.n)**
+
 ```cpp
 class Solution {
   public:
@@ -81,6 +83,41 @@ class Solution {
       }
       
       return min;
+    }
+};
+```
+
+**O((m + n).log(max))**
+
+```cpp
+class Solution {
+  public:
+    Solution () {
+      std::ios::sync_with_stdio(false);
+      std::cin.tie(nullptr);
+    }
+  
+    int kthSmallest (vector <vector <int>>& matrix, int k) {
+      int n = matrix.size();
+      int low = matrix[0][0], high = matrix[n - 1][n - 1];
+      
+      while (low < high) {
+        int mid = low + (high - low) / 2;
+        int count = 0, c = n - 1;
+        
+        for (int r = 0; r < n; ++r) {
+          while (c >= 0 and matrix[r][c] > mid)
+            --c;
+          count += c + 1;
+        }
+        
+        if (count < k)
+          low = mid + 1;
+        else
+          high = mid;
+      }
+      
+      return low;
     }
 };
 ```
