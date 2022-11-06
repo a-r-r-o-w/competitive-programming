@@ -14,5 +14,6 @@ This repository contains solutions to problems that I have solved on different c
 - Z-function
   - Quadratic implementation
   - Linear implementation
+- Booth's algorithm (Lexicographical Minimal Rotation)
 
 ### Data Structures

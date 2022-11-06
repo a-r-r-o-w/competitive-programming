@@ -440,5 +440,41 @@ namespace arrow {
       return {d, d1, d2};
     }
 
+    /**
+     * @brief Finds the minimal lexicographical rotation of a string
+     *        - Time complexity: O(n)
+     *        - Space complexity: O(n)
+     * 
+     * @param s std::string
+     * @return int32_t index where the minimal lexicographical rotation begins
+     */
+    int32_t booth_function (const std::string &s) {
+      int32_t n = s.length(), k = 0;
+      std::vector <int32_t> F (2 * n, -1);
+
+      for (int j = 1; j < 2 * n; ++j) {
+        int32_t i = F[j - k - 1];
+        int32_t x = j % n;
+        int32_t y = (k + i + 1) % n;
+
+        while (i != -1 and s[x] != s[y]) {
+          if (s[x] < s[y])
+            k = j - i - 1;
+          i = F[i];
+          y = (k + i + 1) % n;
+        }
+
+        if (i == -1 and s[x] != s[y]) {
+          if (s[x] < s[y])
+            k = j;
+          F[j - k] = -1;
+        }
+        else
+          F[j - k] = i + 1;
+      }
+
+      return k;
+    }
+
   }
 }
