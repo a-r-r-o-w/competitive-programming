@@ -97,6 +97,40 @@ class Solution {
 };
 ```
 
+```cpp
+class Solution {
+  public:
+    bool wordBreak (string s, vector <string>& wordDict) {
+      int n = s.length();
+      std::vector <int> have (n, -1);
+      std::unordered_set corpus (wordDict.begin(), wordDict.end());
+      
+      auto dfs = [&] (auto self, int index) -> bool {
+        int k = s.length();
+
+        if (index >= k)
+          return true;
+        if (have[index] != -1)
+          return have[index];
+        
+        bool found = false;
+        std::string prefix;
+        
+        for (int i = index; i < k and not found; ++i) {
+          prefix += s[i];
+          if (corpus.count(prefix) and self(self, i + 1))
+            found = true;
+        }
+
+        have[index] = found;
+        return have[index];
+      };
+      
+      return dfs(dfs, 0);
+    }
+};
+```
+
 <br>
 
 ### Statistics
