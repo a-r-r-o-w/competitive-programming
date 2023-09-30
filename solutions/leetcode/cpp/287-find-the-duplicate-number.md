@@ -51,18 +51,36 @@ None
 
 ### Solution
 
-```
+```cpp
+class Solution {
+  public:
+    int findDuplicate(vector <int>& nums) {
+      int n = nums.size();
+      int slow = nums[0], fast = nums[nums[0]];
+
+      while (slow != fast) {
+        slow = nums[slow];
+        fast = nums[nums[fast]];
+      }
+      fast = 0;
+      while (slow != fast) {
+        slow = nums[slow];
+        fast = nums[fast];
+      }
+      return slow;
+    }
+};
 ```
 
 <br />
 
 ### Statistics
 
-- total accepted: 1136239
-- total submissions: 1922863
+- total accepted: 1321065
+- total submissions: 2235593
 - acceptance rate: 59.1%
-- likes: 18577
-- dislikes: 2697
+- likes: 21013
+- dislikes: 3476
 
 <br />
 
